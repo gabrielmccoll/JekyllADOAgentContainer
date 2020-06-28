@@ -4,7 +4,9 @@ set -e
 
 
 #to work as a managed identity inside Azure Container Instance, need to login and then get the keyvault secret
+az cloud set -n AzureCloud
 az login --identity
+
 AZP_TOKEN=$(az keyvault secret show --name adocontaineragent --vault-name adocontainer --query value)
 
 if [ -z "$AZP_URL" ]; then
