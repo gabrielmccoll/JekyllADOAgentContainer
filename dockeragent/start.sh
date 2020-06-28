@@ -23,10 +23,6 @@ if [ -z "$AZP_TOKEN_FILE" ]; then
   AZP_TOKEN_FILE=/azp/.token
   echo -n $AZP_TOKEN > "$AZP_TOKEN_FILE"
 fi
-echo $AZP_TOKEN
-cat "$AZP_TOKEN_FILE"
-echo "here's the stuff above"
-unset AZP_TOKEN
 
 if [ -n "$AZP_WORK" ]; then
   mkdir -p "$AZP_WORK"
