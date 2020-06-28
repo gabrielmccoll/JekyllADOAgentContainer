@@ -19,10 +19,14 @@ RUN echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && \
 
 RUN echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
+RUN apt-get install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+&& curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
 COPY ./Jekyll .
 
-RUN apt-get update \
-&& apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
         jq \

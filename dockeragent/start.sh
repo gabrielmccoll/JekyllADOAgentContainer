@@ -2,6 +2,11 @@
 export LC_ALL="en_US.UTF-8"
 set -e
 
+
+#to work as a managed identity inside Azure Container Instance, need to login and then get the keyvault secret
+az login --identity
+AZP_TOKEN=$(az keyvault secret show --name adocontaineragent --vault-name adocontainer --query value)
+
 if [ -z "$AZP_URL" ]; then
   echo 1>&2 "error: missing AZP_URL environment variable"
   exit 1
