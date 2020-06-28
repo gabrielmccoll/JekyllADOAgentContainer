@@ -7,7 +7,7 @@ set -e
 az cloud set -n AzureCloud
 az login --identity --allow-no-subscriptions
 
-AZP_TOKEN=$(az keyvault secret show --name adocontaineragent --vault-name adocontainer --query value)
+AZP_TOKEN=$(az keyvault secret show --name adocontaineragent --vault-name adocontainer --query value --out tsv)
 
 if [ -z "$AZP_URL" ]; then
   echo 1>&2 "error: missing AZP_URL environment variable"
