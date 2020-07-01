@@ -2,7 +2,6 @@
 export LC_ALL="en_US.UTF-8"
 set -e
 
-
 #to work as a managed identity inside Azure Container Instance, 
 #the container needs to need to login and then get the keyvault secret
 az cloud set -n AzureCloud
@@ -93,7 +92,7 @@ print_header "3. Configuring Azure Pipelines agent..."
   --acceptTeeEula & wait $!
 
 # remove the administrative token before accepting work
-rm $AZP_TOKEN_FILE
+#rm $AZP_TOKEN_FILE
 
 print_header "4. Running Azure Pipelines agent..."
 
@@ -101,4 +100,5 @@ print_header "4. Running Azure Pipelines agent..."
 # AgentService.js understands how to handle agent self-update and restart
 exec ./externals/node/bin/node ./bin/AgentService.js interactive --once
 
+print_header "5. trying to clean up..."
 cleanup
