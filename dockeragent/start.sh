@@ -3,7 +3,8 @@ export LC_ALL="en_US.UTF-8"
 set -e
 
 
-#to work as a managed identity inside Azure Container Instance, need to login and then get the keyvault secret
+#to work as a managed identity inside Azure Container Instance, 
+#the container needs to need to login and then get the keyvault secret
 az cloud set -n AzureCloud
 az login --identity --allow-no-subscriptions
 
@@ -100,3 +101,4 @@ print_header "4. Running Azure Pipelines agent..."
 # AgentService.js understands how to handle agent self-update and restart
 exec ./externals/node/bin/node ./bin/AgentService.js interactive --once
 
+cleanup
