@@ -2,13 +2,6 @@
 export LC_ALL="en_US.UTF-8"
 set -e
 
-#to work as a managed identity inside Azure Container Instance, 
-#the container needs to need to login and then get the keyvault secret
-az cloud set -n AzureCloud
-az login --identity --allow-no-subscriptions
-
-AZP_TOKEN=$(az keyvault secret show --name adocontaineragent --vault-name adocontainer --query value --out tsv)
-
 if [ -z "$AZP_URL" ]; then
   echo 1>&2 "error: missing AZP_URL environment variable"
   exit 1
@@ -16,8 +9,11 @@ fi
 
 if [ -z "$AZP_TOKEN_FILE" ]; then
   if [ -z "$AZP_TOKEN" ]; then
-    echo 1>&2 "error: missing AZP_TOKEN environment variable"
-    exit 1
+      #to work as a managed identity inside Azure Container Instance, 
+      #the container needs to need to login and then get the keyvault secret
+      az cloud set -n AzureCloud
+      az login --identity --allow-no-subscriptions
+      AZP_TOKEN=$(az keyvault secret show --name $(cat "$AZ_SECRET_NAME") --vault-name $(cat "$AZ_KEY_VAULT") --query value --out tsv)
   fi
 
   AZP_TOKEN_FILE=/azp/.token
