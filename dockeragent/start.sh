@@ -13,7 +13,7 @@ if [ -z "$AZP_TOKEN_FILE" ]; then
       #the container needs to need to login and then get the keyvault secret
       az cloud set -n AzureCloud
       az login --identity --allow-no-subscriptions
-      AZP_TOKEN=$(az keyvault secret show --name $(cat "$AZ_SECRET_NAME") --vault-name $(cat "$AZ_KEY_VAULT") --query value --out tsv)
+      AZP_TOKEN=$(az keyvault secret show --name $AZ_SECRET_NAME --vault-name $AZ_KEY_VAULT --query value --out tsv)
   fi
 
   AZP_TOKEN_FILE=/azp/.token
